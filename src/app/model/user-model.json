@@ -1,0 +1,31 @@
+{
+  "CurrentUser": {
+    "code": 0,
+    "data": {
+      "manager": {
+        "createAt": "",
+        "createBy": "",
+        "id": "",
+        "name": "",
+        "nick": "",
+        "status": "",
+        "updateAt": "",
+        "updateBy": ""
+      },
+      "result": "",
+      "role": {
+        "createAt": "",
+        "createBy": "",
+        "id": "",
+        "name": "",
+        "nick": "",
+        "status": "",
+        "updateAt": "",
+        "updateBy": ""
+      },
+      "size": "",
+      "total": "",
+    },
+    "message": "",
+  }
+}
