@@ -1,0 +1,83 @@
+<div class="container-box">
+  <form #searchForm="ngForm" (ngSubmit)="goSearch(searchForm.value)" class="form-group">
+    <!--在招公司-----company---------------------------------------------------->
+    <!--<div class="col-md-4 col-sm-4">-->
+      <!--<label for="company">在招公司</label>-->
+      <!--<input type="text" name="company" id="company" class="form-control"-->
+             <!--ngModel>-->
+    <!--</div>-->
+    <!--在招职位----jobs----------------------------------------------------->
+    <!--<div class="col-md-4 col-sm-4">-->
+      <!--<label for="jobs">在招职位</label>-->
+      <!--<input type="text" name="jobs" id="jobs" class="form-control"-->
+             <!--ngModel>-->
+    <!--</div>-->
+    <!--工作经验---years------------------------------------------------------>
+    <!--<div class="col-md-4 col-sm-4">-->
+      <!--<label for="years">工作经验</label>-->
+      <!--<select name="years" id="years" [(ngModel)]="years" class="form-control">-->
+        <!--<option *ngFor="let option of selectData.years" [value]="option.code">{{option.display}}</option>-->
+      <!--</select>-->
+    <!--</div>-->
+
+
+   <div>
+    <!--开始时间--dateFrom------------------------------------------------------->
+        <div class="col-md-4 col-sm-4">
+          <label for="dateFrom">开始日期</label>
+          <input type="text" name="dateFrom" id="dateFrom" class="form-control" #dateFrom
+                 [value]="dtf | date: 'y-MM-dd'"
+                 (focus)="fromShown=true">
+
+          <div *ngIf="fromShown" style="min-height:290px; display: inline-block; position: fixed; z-index: 100">
+            <datepicker [(ngModel)]="dtf" [ngModelOptions]="{standalone: true}"
+                        [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+            <button type="button" class="btn btn-sm btn-info" (click)="today()">今天</button>
+            <button type="button" class="btn btn-sm btn-info" (click)="setFrom()">确定</button>
+          </div>
+        </div>
+      <!--截止时间---dateTo------------------------------------------------------>
+        <div class="col-md-4 col-sm-4">
+          <label for="dateTo">结束日期</label>
+          <input type="text" name="dateTo" id="dateTo" class="form-control" #dateTo
+                 (focus)="toShown=true"
+                 [value]="dtt | date: 'y-MM-dd'">
+
+          <div *ngIf="toShown" style="min-height:290px; display: inline-block; position: fixed; z-index: 100">
+            <datepicker [(ngModel)]="dtt" [ngModelOptions]="{standalone: true}"
+                        [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+            <button type="button" class="btn btn-sm btn-info" (click)="today()">今天</button>
+            <button type="button" class="btn btn-sm btn-info" (click)="setTo()">确定</button>
+          </div>
+      </div>
+    </div>
+
+    <!--类型---type------------------------------------------------------>
+    <div class="col-md-4 col-sm-4">
+      <label for="type">类型</label>
+      <select name="type" id="type" [(ngModel)]="typeValue" class="form-control">
+        <option *ngFor="let option of selectData.type" [value]="option.code">{{option.display}}</option>
+      </select>
+    </div>
+
+    <!--状态---status------------------------------------------------------>
+    <div class="col-md-4 col-sm-4">
+      <label for="status">状态</label>
+      <select name="status" id="status" [(ngModel)]="statusValue" class="form-control">
+        <option *ngFor="let option of selectData.status" [value]="option.code">{{option.display}}</option>
+      </select>
+    </div>
+
+    <!--搜索  清除--------------------------------------------------------->
+    <div class="form-group">
+      <div class="col-sm-12 col-md-12">
+        <button class="btn btn-success pull-right btn-set">搜索</button>
+        <button type="button" class="btn btn-danger pull-right" (click)="clearInput()">清除</button>
+      </div>
+    </div>
+  </form>
+  <div>
+    <!--{{searchForm.value | json}}-->
+    <!--{{dateFrom.value}}&#45;&#45;{{dateTo.value}}-->
+  </div>
+</div>

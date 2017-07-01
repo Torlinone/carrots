@@ -1,0 +1,183 @@
+
+
+<div class="container-box">
+  <div class="panel-default">
+
+    <div class="panel-heading">
+      <h5>{{componentTitle}}</h5>
+    </div>
+
+    <br><br>
+
+      <form #articleForm="ngForm"  class="form-horizontal">
+
+        <div class="form-group">
+          <label for="title" class="control-label col-sm-1 col-sm-offset-1 label-text">标题名称</label>
+          <div class="col-sm-8">
+            <input type="text" name="title" id="title" class="form-control" required [(ngModel)]="setTitle">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <!--<div #select="ngModelGroup" ngModelGroup="select" class="form-group">-->
+
+          <div class="form-inline">
+
+            <label for="type" class="control-label col-sm-1 col-sm-offset-1 label-text">类型</label>
+            <div class="col-sm-8">
+              <select id="type" name="type" class="form-control" [(ngModel)]="setType" required>
+                <option *ngFor="let type of selectOption.type" [value]="type.code">{{type.display}}</option>
+              </select>
+
+              <span *ngIf="articleForm.value.type==='3'">&nbsp;&nbsp;&nbsp;----&nbsp;&nbsp;&nbsp;</span>
+
+              <select name="industry" class="form-control" *ngIf="articleForm.value.type==='3'" required [(ngModel)]="setIndustry">
+                <option *ngFor="let industry of selectOption.industry" [value]="industry.code">{{industry.display}}</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="content" class="control-label col-sm-1 col-sm-offset-1 label-text">说明</label>
+          <div class="col-sm-8">
+            <input type="text" name="content" id="content" class="form-control" required minlength="10"
+                   [(ngModel)]="setContent">
+          </div>
+<!--------------------- TinyMCE ---------------------------------->
+          <div class="col-sm-8 col-sm-offset-2">
+            <app-tiny-edit
+              [elementId]="'tiny-edit'"
+              [mceText]="mceText"
+              (onEditorContentChange)="keyupHandler($event)">
+
+            </app-tiny-edit>
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="url" class="control-label col-sm-1 col-sm-offset-1 label-text">跳转链接</label>
+          <div class="col-sm-8">
+            <input type="text" name="url" id="url" class="form-control" required [(ngModel)]="setUrl">
+          </div>
+        </div>
+
+<!---------------------------------------------img----------------------------------------------------------->
+
+        <div class="form-group">
+          <label for="img" class="control-label col-sm-1 col-sm-offset-1 label-text">配图</label>
+          <div class="col-sm-8">
+            <!--<input type="text" name="img" id="img" class="form-control" [(ngModel)]="setImg">-->
+            <input type="file" accept="image/png,image/gif,image/jpg" id="img" class="form-control btn-primary" ng2FileSelect [uploader]="uploader"/>
+
+            <div ng2FileDrop
+                 [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                 (fileOver)="fileOverBase($event)"
+                 [uploader]="uploader"
+                 class="well my-drop-zone col-sm-6">
+              拖拽上传
+            </div>
+
+            <div *ngIf="this.imgStatus" class="col-sm-6">
+              <img style="width: 100%;" [attr.src]="setImg">
+            </div>
+
+          </div>
+        </div>
+      </form>
+
+    <div class="col-sm-8 col-sm-offset-2">
+      <h3>上传列表</h3>
+      <p>等待上传: {{ uploader?.queue?.length }}</p>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th width="50%">文件名</th>
+          <th>大小</th>
+          <th>进度</th>
+          <th>状态</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let item of uploader.queue; let i=index">
+          <td><strong>{{ item?.file?.name }}</strong></td>
+          <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+          <td *ngIf="uploader.isHTML5">
+            <div class="progress" style="margin-bottom: 0;">
+              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+            </div>
+          </td>
+
+          <td class="text-center">
+            <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+            <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+            <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+          </td>
+
+          <td nowrap>
+            <button type="button" class="btn btn-success btn-xs"
+                    (click)="upload(i)" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+              <span class="glyphicon glyphicon-upload"></span> 上传
+
+            </button>
+            <button type="button" class="btn btn-warning btn-xs"
+                    (click)="item.cancel()" [disabled]="!item.isUploading">
+              <span class="glyphicon glyphicon-ban-circle"></span> 取消
+            </button>
+            <button type="button" class="btn btn-danger btn-xs"
+                    (click)="item.remove()">
+              <span class="glyphicon glyphicon-trash"></span> 移除
+            </button>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div>
+        <div>
+          Queue progress:
+          <div class="progress" style="">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+          </div>
+          <!--<div>{{uploader.progress}}</div>-->
+        </div>
+        <!--<button type="button" class="btn btn-success btn-s"-->
+                <!--(click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">-->
+          <!--<span class="glyphicon glyphicon-upload"></span> 上传全部-->
+        <!--</button>-->
+        <!--<button type="button" class="btn btn-warning btn-s"-->
+                <!--(click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">-->
+          <!--<span class="glyphicon glyphicon-ban-circle"></span> 取消全部-->
+        <!--</button>-->
+        <!--<button type="button" class="btn btn-danger btn-s"-->
+                <!--(click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">-->
+          <!--<span class="glyphicon glyphicon-trash"></span> 移除全部-->
+        <!--</button>-->
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-sm-offset-2">
+    <button type="button" class="btn btn-success" [disabled]="!articleForm.valid || !this.imgStatus" (click)="pushOnline()">立即上线</button>
+    <button type="button" class="btn btn-success" [disabled]="!articleForm.valid || !this.imgStatus" (click)="pushDraft()">存为草稿</button>
+    <button type="button" class="btn btn-danger" (click)="clearInput()">重新填写</button>
+    <button type="button" class="btn btn-default" (click)="cancel_()">取消</button>
+  </div>
+
+
+</div>
+
+
+
+
+
+
+<!--<div>{{articleForm.value | json}}</div>-->

@@ -1,0 +1,28 @@
+<div class="main">
+  <div class="labels"></div>
+
+  <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate >
+    <label class="glyphicon glyphicon-user icon-text" for="name">
+      <input type="text" name="loginName" id="name" class="input" placeholder="请输入用户名"
+             formControlName="loginName"/>
+    </label>
+    <div class=‘error-msg’ [hidden]="loginForm.get('loginName').valid || loginForm.get('loginName').untouched">
+      <i [hidden]="!loginForm.hasError('required', 'loginName')">用户名不能为空</i>
+      <i [hidden]="!loginForm.hasError('minlength', 'loginName')">用户名最少4位</i>
+      <i [hidden]="!loginForm.hasError('maxlength', 'loginName')">用户名最多12位</i>
+    </div>
+
+    <label class="glyphicon glyphicon-log-in icon-text" for="pwd">
+      <input type="password" name="loginPassword" id="pwd" class="input" placeholder="请输入密码"
+             formControlName="loginPassword"/>
+    </label>
+    <div class=‘error-msg’ [hidden]="loginForm.get('loginPassword').valid || loginForm.get('loginPassword').untouched">
+      <i [hidden]="!loginForm.hasError('required', 'loginPassword')">密码不能为空</i>
+      <i [hidden]="!loginForm.hasError('minlength', 'loginPassword')">密码最少4位</i>
+      <i [hidden]="!loginForm.hasError('maxlength', 'loginPassword')">密码最多12位</i>
+      <!--<i [hidden]="loginForm.hasError('password', 'loginPassword')">{{loginForm.get("loginPassword").descpassword}}</i>-->
+    </div>
+    <p class="tips">{{logMsg}}</p>
+    <button class="btn" [disabled]="!loginForm.valid && loginForm.touched">登 录</button>
+  </form>
+</div>

@@ -1,0 +1,37 @@
+<!--<div>-->
+  <!--侧栏列表-->
+  <!--<ul *ngFor="let first of mainList">-->
+    <!--<a>{{first.name}}</a>-->
+    <!--<li *ngFor="let second of first.list"-->
+        <!--(click)="listInfo(first.tableId, second.listId)">-->
+      <!--{{second.name}}-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</div>-->
+
+<div class="col-md-2 col-sm-12 navbar-left">
+
+  <accordion [closeOthers]="oneAtATime">
+
+    <accordion-group class="top-nav"
+                     *ngFor="let first of mainList"
+                     [panelClass]="customClass"
+                     [isOpen]="isFirstOpen"
+                     #group>
+
+      <div accordion-heading class="list-title">
+        <i class="glyphicon glyphicon-pencil pull-left float-xs-left"></i>
+        {{first.name}}
+        <i class="pull-right float-xs-right glyphicon"
+           [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+      </div>
+
+      <p class="list-p" *ngFor="let second of first.list"
+         (click)="listInfo(first.tableId, second.listId)">
+        {{second.name}}
+      </p>
+
+    </accordion-group>
+  </accordion>
+
+</div>

@@ -1,0 +1,13 @@
+.container-box {
+  margin: 2rem;
+  padding-bottom: 1rem;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #DDD;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+.btn-set {
+  margin-left: 1rem;
+}

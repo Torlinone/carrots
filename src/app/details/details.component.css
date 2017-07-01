@@ -1,0 +1,29 @@
+.container-box {
+  margin: 2rem;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  /*border: 1px solid #A6A6A6;*/
+  background-color: #ffffff;
+}
+.tittle {
+  background-color: lightblue;
+  padding: .8rem;
+  overflow: hidden;
+}
+.tittle-text {
+  display: inline-block;
+}
+.input-box {
+   width: 5rem;
+}
+
+.set-box {
+  margin: 20px 10px;
+}
+.table-outline {
+  border: 1px solid #eee;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}

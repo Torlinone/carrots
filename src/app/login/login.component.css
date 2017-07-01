@@ -1,0 +1,75 @@
+.main {
+  position: absolute;
+  margin: auto;
+  width: 26%;
+  min-width: 300px;
+  height: 300px;
+  top: 0; left: 0; bottom: 0; right: 0;
+  text-align: center;
+  background: #ffffff;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.labels {
+  position: relative;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  color: #fff;
+  background: url("../../assets/img/login-logo.png") no-repeat center;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 2px 0 #A6A6A6;
+  -moz-box-shadow: 0 0 2px 0 #A6A6A6;
+  box-shadow: 0 0 2px 0 #A6A6A6;
+}
+.input {
+  width: 80%;
+  padding-left: 10px;
+  font-size: 14px;
+  vertical-align: top;
+  /*min-width: 240px;*/
+  border: 0;
+  border-left: 1px solid #A6A6A6;
+  outline: none;
+}
+.icon-text {
+  margin: 6px;
+  padding: 16px 10px;
+  color: #FF8C00;
+  font-size: 18px;
+  width: 90%;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 2px 0 #A6A6A6;
+}
+
+.btn {
+  width: 90%;
+  margin: 10px;
+  padding: 10px;
+  font-size: 18px;
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #FF8C00;
+}
+.tips {
+  font-size: 14px;
+  color: red;
+  padding-left: 40px;
+  margin: 0;
+  text-align: left;
+}
+.error-msg {
+  font-style: italic;
+  font-size: 12px;
+  color: #ffffff;
+  background-color: green;
+  border-radius: 4px;
+  text-align: left;
+}

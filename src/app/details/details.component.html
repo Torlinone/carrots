@@ -1,0 +1,90 @@
+<div class="container-box">
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      <h5 class="panel-title tittle-text">Article列表</h5>
+      <button class="btn btn-sm btn-success pull-right" (click)="addArticle()">新增</button>
+    </div>
+
+    <div class="panel-body">
+
+      <div class="table-response table-outline">
+        <table *ngIf="articleList" class="table table-striped">
+          <tr >
+            <th *ngFor="let header of detailTittle.article">{{header}}</th>
+          </tr>
+          <tr *ngFor="let list of articleList.data.articleList; let i=index">
+            <td>{{i + 1}}</td>
+            <td>{{list.title}}</td>
+            <td>{{list.type | type}}</td>
+            <td>{{list.createAt | date: "y-MM-dd HH:mm:ss"}}</td>
+            <td>{{list.updateAt | date: "y-MM-dd HH:mm:ss"}}</td>
+            <td>{{list.author}}</td>
+            <td>{{list.status | statusPip}}</td>
+            <td>
+              <button class="btn btn-success btn-sm" (click)="alertMsg(i, staticModal)">{{(list.status == 1 ? 2 : 1) | statusOperate}}</button>
+              <button class="btn btn-primary btn-sm" [routerLink]="['/navbar/add-article', thisId(i)]">编辑</button>
+              <button class="btn btn-danger btn-sm" (click)="doDeleteArticle(i)">删除</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="form-inline">
+        <!--设置每页显示数量input-->
+        <div class="form-group pull-left set-box">
+          <label for="listNum">每页显示</label>
+          <input type="number" name="listNum" id="listNum" class="form-control input-box" #listSize>列
+          <button type="button" class="btn btn-default btn-sm" (click)="updateListSize(listSize.value)">设置</button>
+        </div>
+
+        <!--跳转到第几页input-->
+        <div class="form-group pull-left set-box">
+          <label for="goPage">跳转到第</label>
+          <input type="number" name="gaPage" id="goPage" class="form-control input-box" #goPage>页
+          <button type="button" class="btn btn-default btn-sm" (click)="setPage(goPage.value)">确定</button>
+        </div>
+
+        <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [maxSize]="maxSize" class="pagination-sm pull-left"
+                    [boundaryLinks]="true" [rotate]="false"
+                    [firstText]="firsText" [previousText]="previousText" [nextText]="nextText" [lastText]="lastText"
+                    (pageChanged)="pageChanged($event)"
+                    (numPages)="numPages = $event"></pagination>
+      </div>
+
+    </div>
+
+
+    <!--<button type="button" class="btn btn-primary" (click)="staticModal.show()">Static modal</button>-->
+
+    <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static', ignoreBackdropClick: false}"
+         tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title pull-left">操作提示</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <h3>是否进行{{statusDisplay | statusOperate}}操作？</h3>
+            <br>
+            点击 <b>&times;</b> 取消操作
+            <br>
+
+            <div>
+              <button class="btn btn-success btn-sm" (click)="imNotSure(staticModal)">取消</button>
+              <button class="btn btn-success btn-sm"(click)="imSure(staticModal)">确定</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

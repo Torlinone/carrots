@@ -1,0 +1,31 @@
+.main {
+  text-align: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid honeydew;
+}
+.main .p {
+  font-size: 1.6rem;
+  color: #ffffff;
+  margin: 0;
+  padding: .8rem 0;
+}
+.main .ul{
+  /*float: right;*/
+  margin: 0;
+  padding: 1rem 2rem;
+  background-color: white;
+}
+.main .li {
+  float: right;
+  color: darkslateblue;
+  margin: 0;
+  padding: 0 2rem;
+  border-right: 2px solid gainsboro;
+}
+.main .logout {
+  padding: 0 1rem 0 2rem;
+  color: #FF8C00;
+  cursor: pointer;
+}
